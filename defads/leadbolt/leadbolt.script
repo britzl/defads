@@ -1,0 +1,22 @@
+--go.property("section_id", 0)
+
+local defads = require "defads.shared.defads"
+local leadbolt = require "defads.leadbolt.leadbolt"
+
+function init(self)
+end
+
+function final(self)
+	self.ad.destroy()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show") then
+		self.ad = defads.create()
+		local html = leadbolt.html()
+		html = html:gsub("__SECTION_ID__", tostring(message.section_id))
+		html = html:gsub("__PACKAGE__", tostring(defads.get_iac_base_url()))
+		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
+		self.ad.show(html)
+	end
+end

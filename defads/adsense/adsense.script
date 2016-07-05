@@ -1,0 +1,39 @@
+--go.property("section_id", 0)
+
+local defads = require "defads.shared.defads"
+local adsense = require "defads.adsense.adsense"
+
+function init(self)
+end
+
+function final(self)
+	self.ad.destroy()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show_responsive") then
+		assert(message.ad_client, "You must provide an ad_client")
+		assert(message.ad_slot, "You must provide an ad_slot")
+		self.ad = defads.create()
+		local html = adsense.responsive()
+		html = html:gsub("__AD_CLIENT__", message.ad_client)
+		html = html:gsub("__AD_SLOT__", message.ad_slot)
+		
+		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
+		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
+		self.ad.show(html)
+	elseif message_id == hash("show_fixed") then
+		assert(message.ad_client, "You must provide an ad_client")
+		assert(message.ad_slot, "You must provide an ad_slot")
+		assert(message.width, "You must provide a width")
+		assert(message.height, "You must provide a height")
+		self.ad = defads.create()
+		local html = adsense.fixed(message.width, message.height)
+		html = html:gsub("__AD_CLIENT__", message.ad_client)
+		html = html:gsub("__AD_SLOT__", message.ad_slot)
+
+		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
+		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
+		self.ad.show(html)
+	end
+end
