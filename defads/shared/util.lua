@@ -1,7 +1,7 @@
 local M = {}
 
 
-function M.inject_args(html, args)
+function M.inject(html, args)
 	for k,v in pairs(args) do
 		html = html:gsub(k, v)
 	end

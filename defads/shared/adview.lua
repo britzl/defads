@@ -18,7 +18,7 @@ function M.create()
 	end
 	
 	local instance = {}
-	instance.id = id_or_error
+	instance.id = id
 
 	local function iac_listener(self, payload, t)
 		local webview_id = string.match(payload.url, "/webview/(.*)/close")

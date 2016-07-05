@@ -20,9 +20,9 @@ function on_message(self, message_id, message, sender)
 			
 		local html = adsense.responsive(self.ad.id, message.ad_client, message.ad_slot)
 		self.ad.show(html, function(result)
-			if result == defads.ERROR then
+			if result.status == adview.ERROR then
 				msg.post(sender, "error")
-			elseif result == defads.CLOSED then
+			elseif result.status == adview.CLOSED then
 				msg.post(sender, "closed")
 			end
 		end)
@@ -39,9 +39,9 @@ function on_message(self, message_id, message, sender)
 
 		local html = adsense.fixed(self.ad.id, message.ad_client, message.ad_slot, message.width, message.height)
 		self.ad.show(html, function(result)
-			if result == defads.ERROR then
+			if result.status == adview.ERROR then
 				msg.post(sender, "error")
-			elseif result == defads.CLOSED then
+			elseif result.status == adview.CLOSED then
 				msg.post(sender, "closed")
 			end
 		end)

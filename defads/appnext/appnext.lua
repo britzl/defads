@@ -97,6 +97,7 @@ local VIDEO_HTML = [[
 	            }, false);
 	        })();
 	    </script>
+	    __CLOSEBUTTON__
 </body>
 </html>
 ]]

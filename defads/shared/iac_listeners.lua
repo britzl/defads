@@ -8,9 +8,7 @@ local M = {}
 local listeners = {}
 
 function M.add(fn)
-	print("iac_listeners.add", fn)
 	iac.set_listener(function(self, payload, type)
-		print("iac_listener")
 		for fn,_ in pairs(listeners) do
 			fn(self, payload, type)
 		end
@@ -20,7 +18,6 @@ function M.add(fn)
 end
 
 function M.remove(fn)
-	print("iac_listeners.remove", fn)
 	listeners[fn] = nil
 end
 

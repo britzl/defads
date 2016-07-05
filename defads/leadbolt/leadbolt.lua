@@ -20,7 +20,7 @@ function M.html(webview_id, section_id)
 		__SECTION_ID__ = section_id,
 		__CLOSEBUTTON__ = util.closebutton(webview_id),
 	}
-	return util.inject(CLOSEBUTTON_HTML, args)
+	return util.inject(HTML, args)
 end
 
 return M
