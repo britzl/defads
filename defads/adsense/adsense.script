@@ -1,6 +1,4 @@
---go.property("section_id", 0)
-
-local defads = require "defads.shared.defads"
+local adview = require "defads.shared.adview"
 local adsense = require "defads.adsense.adsense"
 
 function init(self)
@@ -14,26 +12,38 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("show_responsive") then
 		assert(message.ad_client, "You must provide an ad_client")
 		assert(message.ad_slot, "You must provide an ad_slot")
-		self.ad = defads.create()
-		local html = adsense.responsive()
-		html = html:gsub("__AD_CLIENT__", message.ad_client)
-		html = html:gsub("__AD_SLOT__", message.ad_slot)
-		
-		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
-		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
-		self.ad.show(html)
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, "error")
+			return
+		end
+			
+		local html = adsense.responsive(self.ad.id, message.ad_client, message.ad_slot)
+		self.ad.show(html, function(result)
+			if result == defads.ERROR then
+				msg.post(sender, "error")
+			elseif result == defads.CLOSED then
+				msg.post(sender, "closed")
+			end
+		end)
 	elseif message_id == hash("show_fixed") then
 		assert(message.ad_client, "You must provide an ad_client")
 		assert(message.ad_slot, "You must provide an ad_slot")
 		assert(message.width, "You must provide a width")
 		assert(message.height, "You must provide a height")
-		self.ad = defads.create()
-		local html = adsense.fixed(message.width, message.height)
-		html = html:gsub("__AD_CLIENT__", message.ad_client)
-		html = html:gsub("__AD_SLOT__", message.ad_slot)
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, "error")
+			return
+		end
 
-		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
-		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
-		self.ad.show(html)
+		local html = adsense.fixed(self.ad.id, message.ad_client, message.ad_slot, message.width, message.height)
+		self.ad.show(html, function(result)
+			if result == defads.ERROR then
+				msg.post(sender, "error")
+			elseif result == defads.CLOSED then
+				msg.post(sender, "closed")
+			end
+		end)
 	end
 end

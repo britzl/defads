@@ -1,0 +1,3 @@
+function init(self)
+	print("This is a library project. It is not intended to be run on its own.")
+end

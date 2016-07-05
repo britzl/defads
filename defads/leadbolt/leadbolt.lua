@@ -1,4 +1,4 @@
-local CLOSEBUTTON_HTML = require "defads.shared.html.closebutton"
+local util = require "defads.shared.util"
 
 local HTML = [[
 <!DOCTYPE html>
@@ -15,8 +15,12 @@ local HTML = [[
 
 local M = {}
 
-function M.html()
-	return HTML:gsub("__CLOSEBUTTON__", CLOSEBUTTON_HTML)
+function M.html(webview_id, section_id)
+	local args = {
+		__SECTION_ID__ = section_id,
+		__CLOSEBUTTON__ = util.closebutton(webview_id),
+	}
+	return util.inject(CLOSEBUTTON_HTML, args)
 end
 
 return M

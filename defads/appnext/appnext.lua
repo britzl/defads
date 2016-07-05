@@ -1,3 +1,6 @@
+local util = require "defads.shared.util"
+
+
 local INTERSTITIAL_HTML = [[
 <html>
 <head>
@@ -10,12 +13,12 @@ local INTERSTITIAL_HTML = [[
 			var Appnext = {
 				android_id: '__ANDROID_ID__',
 				ios_id: '__IOS_ID__',
-				cat: '__CAT__',
+				cat: '',
 				pbk: '',
 				b_title: '',
 				b_color: '',
-				skip_url: '__PACKAGE__://webview/__WEBVIEW_ID__/close',
-				skip_title: '__SKIP_TITLE__',
+				skip_url: '__IAC_URL__',
+				skip_title: '',
 				mute: '',
 				timeout: '',
 				times_to_show: '',
@@ -80,7 +83,7 @@ local VIDEO_HTML = [[
 	                if (origin!=="https://appnext-a.akamaihd.net")return;
 	                if(event.data=='noAds'){
 	                    block.removeChild(iframe);
-	                    document.location = "__PACKAGE__://webview/__WEBVIEW_ID__/close";
+	                    document.location = "__IAC_URL__";
 	                }
 	                if(event.data=='registerVimp'){
 	                    window.addEventListener('touchmove',v,true);
@@ -88,7 +91,7 @@ local VIDEO_HTML = [[
 	                }
 	                if(event.data=='removeVimp'){
 	                    window.removeEventListener('touchmove',v,true);
-	                    document.location = "__PACKAGE__://webview/__WEBVIEW_ID__/close";
+	                    document.location = "__IAC_URL__";
 	                }
 
 	            }, false);
@@ -101,13 +104,24 @@ local VIDEO_HTML = [[
 
 local M = {}
 
-function M.interstitial()
-	return INTERSTITIAL_HTML
+function M.interstitial(webview_id, android_id, ios_id)
+	local args = {
+		__ANDROID_ID__ = android_id,
+		__IOS_ID__ = ios_id,
+		__IAC_URL__ = util.iac_url(webview_id),
+		__CLOSEBUTTON__ = util.closebutton(webview_id),
+	}
+	return util.inject(INTERSTITIAL_HTML, args)
 end
 
-function M.video()
-	return VIDEO_HTML
+function M.video(webview_id, android_id, ios_id)
+	local args = {
+		__ANDROID_ID__ = android_id,
+		__IOS_ID__ = ios_id,
+		__IAC_URL__ = util.iac_url(webview_id),
+		__CLOSEBUTTON__ = util.closebutton(webview_id),
+	}
+	return util.inject(VIDEO_HTML, args)
 end
-
 
 return M

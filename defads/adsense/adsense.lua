@@ -1,4 +1,4 @@
-local CLOSEBUTTON_HTML = require "defads.shared.html.closebutton"
+local util = require "defads.shared.util"
 
 local RESPONSIVE_HTML = [[
 <html>
@@ -72,14 +72,26 @@ local FIXED_BANNER_HTML = [[
 
 local M = {}
 
-function M.responsive()
-	return RESPONSIVE_HTML:gsub("__CLOSEBUTTON__", CLOSEBUTTON_HTML)
+function M.responsive(webview_id, ad_client, ad_slot, args)
+	local args = {
+		__AD_CLIENT__ = ad_client,
+		__AD_SLOT__ = ad_slot,
+		__WEBVIEW_ID__ = webview_id,
+		__CLOSEBUTTON__ = util.closebutton(webview_id),
+	}	
+	return util.inject(RESPONSIVE_HTML, args)
 end
 
-function M.fixed(width, height)
-	assert(width, "You must provide a width")
-	assert(height, "You must provide a height")
-	return FIXED_BANNER_HTML:gsub("__WIDTH__", tostring(width)):gsub("__HEIGHT__", tostring(height)):gsub("__CLOSEBUTTON__", CLOSEBUTTON_HTML)
+function M.fixed(webview_id, ad_client, ad_slot, args, width, height, args)
+	local args = {
+		__AD_CLIENT__ = ad_client,
+		__AD_SLOT__ = ad_slot,
+		__WEBVIEW_ID__ = webview_id,
+		__WIDTH = tostring(width),
+		__HEIGHT__ = tostring(height),
+		__CLOSEBUTTON__ = util.closebutton(webview_id),
+	}
+	return util.inject(FIXED_BANNER_HTML, args)
 end
 
 

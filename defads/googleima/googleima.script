@@ -1,6 +1,4 @@
---go.property("section_id", 0)
-
-local defads = require "defads.shared.defads"
+local adview = require "defads.shared.adview"
 local googleima = require "defads.googleima.googleima"
 
 function init(self)
@@ -12,7 +10,12 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("show") then
-		self.ad = defads.create()
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, "error")
+			return
+		end
+
 		local html = googleima.html()
 		html = html:gsub("__SECTION_ID__", tostring(message.section_id))
 		html = html:gsub("__PACKAGE__", tostring(defads.get_iac_base_url()))

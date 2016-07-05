@@ -1,6 +1,4 @@
---go.property("section_id", 0)
-
-local defads = require "defads.shared.defads"
+local adview = require "defads.shared.adview"
 local appnext = require "defads.appnext.appnext"
 
 function init(self)
@@ -14,26 +12,24 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("show_interstitial") then
 		assert(message.android_id, "You must provide an Android placement id as 'android_id'")
 		assert(message.ios_id, "You must provide an iOS placement id as 'ios_id'")
-		self.ad = defads.create()
-		local html = appnext.interstitial()
-		html = html:gsub("__ANDROID_ID__", message.android_id)
-		html = html:gsub("__IOS_ID__", message.ios_id)
-		html = html:gsub("__CAT__", message.cat or "")
-		html = html:gsub("__SKIP_TITLE__", message.skip_title or "")
-		
-		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
-		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, "error")
+			return
+		end
+
+		local html = appnext.interstitial(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html)
 	elseif message_id == hash("show_video") then
 		assert(message.android_id, "You must provide an Android placement id as 'android_id'")
 		assert(message.ios_id, "You must provide an iOS placement id as 'ios_id'")
-		self.ad = defads.create()
-		local html = appnext.video()
-		html = html:gsub("__ANDROID_ID__", message.android_id)
-		html = html:gsub("__IOS_ID__", message.ios_id)
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, "error")
+			return
+		end)
 
-		html = html:gsub("__PACKAGE__", defads.get_iac_base_url())
-		html = html:gsub("__WEBVIEW_ID__", tostring(self.ad.id))
+		local html = appnext.video(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html)
 	end
 end

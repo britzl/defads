@@ -1,9 +1,6 @@
 [project]
 title = DefAd
 version = 0.1
-branch = unknown
-commit = unknown
-build = unknown
 
 [bootstrap]
 main_collection = /example/example.collectionc
@@ -26,7 +23,4 @@ bundle_identifier = com.defold.example.ads
 
 [android]
 package = com.defold.example.ads
-
-[library]
-include_dirs = defads
 
