@@ -24,3 +24,6 @@ bundle_identifier = com.defold.example.ads
 [android]
 package = com.defold.example.ads
 
+[library]
+include_dirs = defads
+
