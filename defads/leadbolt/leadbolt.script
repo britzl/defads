@@ -20,7 +20,7 @@ function on_message(self, message_id, message, sender)
 			return
 		end
 
-		local html = leadbolt.html(webview_id, message.section_id)
+		local html = leadbolt.html(self.ad.id, message.section_id)
 		self.ad.show(html)
 	end
 end
