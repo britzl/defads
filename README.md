@@ -18,7 +18,7 @@ Open the game.project file for the project in which you intend to include ads. I
 
 Once you have the dependency added to your game.project file you can fetch the dependency so that it is included in your Project Explorer. You fetch your library dependencies using the Project->Fetch Libraries menu option in the Defold editor.
 
-When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by Defold Ads library project.
+When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by the Defold Ads library project.
 
 ## Step 3 - Include the game objects for chosen ad networks
 Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project (e.g. `/defads/leadbolt/leadbolt.go`). Add the game objects for the ad networks you wish to use to a collection in your project. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
