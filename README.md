@@ -21,7 +21,7 @@ Once you have the dependency added to your game.project file you can fetch the d
 When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by Defold Ads Library project.
 
 ## Step 3 - Include the game objects for chosen ad networks
-Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project. Add the game objects for the ad networks you wish to use to a collection in your project. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
+Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project (e.g. `/defads/leadbolt/leadbolt.go`). Add the game objects for the ad networks you wish to use to a collection in your project. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
 
 ## Step 4 - Show ads
 You show an ad by posting a message to the added game object. The message and message data is specific to each ad network and the details of how to use each ad network is described below.
@@ -34,7 +34,7 @@ You show a Leadbolt ad by posting the following message:
 
 	msg.post("url_to_leadbolt_go", "show", { section_id = 1234 })
 
-Where `section_id` corresponds to the section id as shown in the code snippet provided by Leadbolt for each ad placement you create in the Leadbolt Developer Portal.
+Where `section_id` corresponds to the section id as shown in the code snippet provided by Leadbolt for each ad placement you create in the Leadbolt developer portal.
 
 ## Showing Appnext ads
 The Appnext game object supports Appnext Interstitial and Video ads. You show interstitial and video ads by posting one of the following messages:
