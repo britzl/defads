@@ -14,7 +14,7 @@ function M.create()
 		if type == webview.CALLBACK_RESULT_URL_OK then
 			webview.set_visible(webview_id, 1)
 		elseif type == webview.CALLBACK_RESULT_URL_ERROR then
-			instance.destroy(M.ERROR, "webview.CALLBACK_RESULT_URL_ERROR")
+			instance.destroy(M.RESULT_ERROR, "webview.CALLBACK_RESULT_URL_ERROR")
 		end
 	end)
 	if not ok then
@@ -27,7 +27,7 @@ function M.create()
 	local function iac_listener(self, payload, t)
 		local webview_id = string.match(payload.url, "/webview/(.*)/close")
 		if webview_id and tostring(webview_id) == tostring(instance.id) then
-			instance.destroy(M.CLOSED, "Ok")
+			instance.destroy(M.RESULT_CLOSED, "Ok")
 		end
 	end
 	
@@ -39,7 +39,7 @@ function M.create()
 			iac_listeners.remove(iac_listener)
 			webview.destroy(instance.id)
 			instance.id = nil
-			instance.callback({ status = status or M.CLOSED, message = message or "" })
+			instance.callback({ status = status or M.RESULT_CLOSED, message = message or "" })
 		end
 	end
 	
