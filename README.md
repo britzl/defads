@@ -2,6 +2,7 @@
 This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports:
 * [Leadbolt](https://www.leadbolt.com)
 * [Appnext](https://www.appnext.com)
+* [Adcash](https://www.adcash.com)
 
 
 # Requirements
@@ -43,6 +44,13 @@ The Appnext game object supports Appnext Interstitial and Video ads. You show in
 	msg.post("url_to_addnext_go"), "show_video", { android_id = "your-android-id", ios_id = "your-ios-id" })
 
 Where `android_id` and `ios_id` corresponds to the placement id for the apps created in the Appnext self-service portal.
+
+## Showing Adcash ads
+You show an Adcash ad by posting the following message:
+
+	msg.post("url_to_adcash_go", "show", { zone_id = 1234 })
+
+Where `zone_id` corresponds to the zone id as shown in the zones section of the Adcash console.
 
 ## Callbacks
 When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.

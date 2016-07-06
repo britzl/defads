@@ -2,8 +2,12 @@ local iac_listeners = require "defads.shared.iac_listeners"
 
 local M = {}
 
-M.CLOSED = "ad_closed"
-M.ERROR = "ad_error"
+M.RESULT_CLOSED = "RESULT_CLOSED"
+M.RESULT_ERROR = "RESULT_ERROR"
+
+M.MSG_AD_CLOSED = "ad_closed"
+M.MSG_AD_ERROR = "ad_error"
+
 
 function M.create()
 	local ok, id = pcall(webview.create, function(self, webview_id, request_id, type, data)

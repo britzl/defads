@@ -20,10 +20,10 @@ function on_message(self, message_id, message, sender)
 
 		local html = appnext.interstitial(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html, function(result)
-			if result.status == adview.ERROR then
+			if result.status == adview.RESULT_ERROR then
 				msg.post(sender, "error")
-			elseif result.status == adview.CLOSED then
-				msg.post(sender, "closed")
+			elseif result.status == adview.RESULT_CLOSED then
+				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
 		end)
 	elseif message_id == hash("show_video") then
@@ -37,10 +37,10 @@ function on_message(self, message_id, message, sender)
 
 		local html = appnext.video(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html, function(result)
-			if result.status == adview.ERROR then
+			if result.status == adview.RESULT_ERROR then
 				msg.post(sender, "error")
-			elseif result.status == adview.CLOSED then
-				msg.post(sender, "closed")
+			elseif result.status == adview.RESULT_CLOSED then
+				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
 		end)
 	end

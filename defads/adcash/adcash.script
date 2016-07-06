@@ -1,5 +1,5 @@
 local adview = require "defads.shared.adview"
-local leadbolt = require "defads.leadbolt.leadbolt"
+local adcash = require "defads.adcash.adcash"
 
 function init(self)
 end
@@ -10,17 +10,18 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("show") then
-		assert(message.section_id, "You must provide a section_id")
+		assert(message.zone_id, "You must provide a zone_id")
+	
 		self.ad = adview.create()
 		if not self.ad then
 			msg.post(sender, "error")
 			return
 		end
-
-		local html = leadbolt.html(self.ad.id, message.section_id)
+			
+		local html = adcash.html(self.ad.id, message.zone_id)
 		self.ad.show(html, function(result)
 			if result.status == adview.RESULT_ERROR then
-				msg.post(sender, "error")
+				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.status == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
