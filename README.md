@@ -1,4 +1,4 @@
-# Defold Ads Library Project
+# Defold Ads library project
 This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports:
 * [Leadbolt](https://www.leadbolt.com)
 * [Appnext](https://www.appnext.com)
@@ -13,12 +13,12 @@ Installing and using this project in your game is a four step process.
 ## Step 1 - Create ad network accounts
 Sign up to one or more of the supported ad networks. Depending on the chosen ad network you might also need to create one or more ads, campaigns, placements or similar. Follow the instructions on the respective ad networks dashboard or self service portal.
 
-## Step 2 - Add the Defold Ads project as a dependency
-Open the game.project file for the project in which you intend to include ads. In the Dependencies field in the Project section add the URL to the zip file of [one of the available releases](https://github.com/britzl/defads/releases). If you are uncertain how to do this then it is recommended that you read more about setting up library dependencies [in the official documentation](http://docs.defold.com/manuals/libraries/#_setting_up_library_dependencies).
+## Step 2 - Add the Defold Ads library project as a dependency
+Open the game.project file for the project in which you intend to include ads. In the Dependencies field in the Project section add the URL to the zip file of [one of the available releases](https://github.com/britzl/defads/releases) of the Defold Ads library project. If you are uncertain how to do this then it is recommended that you read more about setting up library dependencies [in the official documentation](http://docs.defold.com/manuals/libraries/#_setting_up_library_dependencies).
 
 Once you have the dependency added to your game.project file you can fetch the dependency so that it is included in your Project Explorer. You fetch your library dependencies using the Project->Fetch Libraries menu option in the Defold editor.
 
-When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by Defold Ads Library project.
+When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by Defold Ads library project.
 
 ## Step 3 - Include the game objects for chosen ad networks
 Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project (e.g. `/defads/leadbolt/leadbolt.go`). Add the game objects for the ad networks you wish to use to a collection in your project. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
