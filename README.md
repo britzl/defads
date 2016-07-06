@@ -1,12 +1,11 @@
 # Defold Ads Library Project
-This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports from:
+This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports:
 * [Leadbolt](https://www.leadbolt.com)
 * [Appnext](https://www.appnext.com)
 
-The project leverages the `webview` component released with [Defold 1.8.4](https://forum.defold.com/t/defold-1-2-84-has-been-released/2272). This means that the library only can support ad networks with HTML5 or mobile web support. No native SDKs can at the time of writing be used in Defold.
 
 # Requirements
-You need to run at least Defold 1.8.4 and you need to set up your own account with ad networks you wish to use.
+The project leverages the `webview` component released with [Defold 1.2.84](https://forum.defold.com/t/defold-1-2-84-has-been-released/2272). This means that you must run at least Defold 1.2.84 to show ads using the library project.
 
 # Installation
 Installing and using this project in your game is a four step process.
@@ -52,6 +51,8 @@ If you come across a bug or have any questions about this project then please po
 We happily accept pull requests for bugfixes or improvements or if you have added support for more ad networks.
 
 # Limitations
+Since this library leverages the `webview` component in Defold it means that the library only can support ad networks with HTML5 or mobile web support. No native SDKs can at the time of writing be used in Defold.
+
 The current webview implementation in Defold is full screen only. This means that it is not possible to show  banner ads or similar on top of your game content. This is likely to change in the near future. Please keep an eye on the [release notes for upcoming releases](https://forum.defold.com/c/releasenotes) and make your voice heard on the forum if you wish to increase the priority of this work.
 
 # License
