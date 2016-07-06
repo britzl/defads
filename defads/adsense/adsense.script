@@ -19,6 +19,7 @@ function on_message(self, message_id, message, sender)
 		end
 			
 		local html = adsense.responsive(self.ad.id, message.ad_client, message.ad_slot)
+		print(html)
 		self.ad.show(html, function(result)
 			if result.status == adview.ERROR then
 				msg.post(sender, "error")
@@ -38,6 +39,7 @@ function on_message(self, message_id, message, sender)
 		end
 
 		local html = adsense.fixed(self.ad.id, message.ad_client, message.ad_slot, message.width, message.height)
+		print(html)
 		self.ad.show(html, function(result)
 			if result.status == adview.ERROR then
 				msg.post(sender, "error")

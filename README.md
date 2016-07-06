@@ -11,7 +11,7 @@ The project leverages the `webview` component released with [Defold 1.2.84](http
 Installing and using this project in your game is a four step process.
 
 ## Step 1 - Create ad network accounts
-Sign up to one or more of the supported ad networks and create one or more ads.
+Sign up to one or more of the supported ad networks. Depending on the chosen ad network you might also need to create one or more ads, campaigns, placements or similar. Follow the instructions on the respective ad networks dashboard or self service portal.
 
 ## Step 2 - Add the Defold Ads project as a dependency
 Open the game.project file for the project in which you intend to include ads. In the Dependencies field in the Project section add the URL to the zip file of [one of the available releases](https://github.com/britzl/defads/releases). If you are uncertain how to do this then it is recommended that you read more about setting up library dependencies [in the official documentation](http://docs.defold.com/manuals/libraries/#_setting_up_library_dependencies).
@@ -21,13 +21,13 @@ Once you have the dependency added to your game.project file you can fetch the d
 When you have done Fetch Libraries you should see a new folder named `defads` in the project explorer. This folder contains the code and assets provided by Defold Ads Library project.
 
 ## Step 3 - Include the game objects for chosen ad networks
-Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project. Add the game objects for the ad networks you wish to use to your main collection. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
+Each of the supported ad networks has a corresponding game object file in in the Defold Ad library project. Add the game objects for the ad networks you wish to use to a collection in your project. You will interact with these game objects using message passing so it's important that the game objects are available and loaded when you wish to show ads in your game.
 
 ## Step 4 - Show ads
 You show an ad by posting a message to the added game object. The message and message data is specific to each ad network and the details of how to use each ad network is described below.
 
 # Usage
-Once you have gone through and setup the steps described in the installation section above your app is ready to display ads.
+Once you have gone through and setup the steps described in the installation section above your app is ready to display ads. Follow the instructions below to show ads from the different ad networks:
 
 ## Showing Leadbolt ads
 You show a Leadbolt ad by posting the following message:
@@ -37,18 +37,21 @@ You show a Leadbolt ad by posting the following message:
 Where `section_id` corresponds to the section id as shown in the code snippet provided by Leadbolt for each ad placement you create in the Leadbolt Developer Portal.
 
 ## Showing Appnext ads
-The Appnext game object supports Appnext Interstitial and Video ads. You show interstitial ads by posting the following:
+The Appnext game object supports Appnext Interstitial and Video ads. You show interstitial and video ads by posting one of the following messages:
 
 	msg.post("url_to_addnext_go"), "show_interstitial", { android_id = "your-android-id", ios_id = "your-ios-id" })
 	msg.post("url_to_addnext_go"), "show_video", { android_id = "your-android-id", ios_id = "your-ios-id" })
 
-Where android_id and ios_id corresponds to the placement id for the corresponding apps created in the Appnext self-service portal.
+Where android_id and ios_id corresponds to the placement id for the apps created in the Appnext self-service portal.
+
+## Callbacks
+When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
 
 # Support
 If you come across a bug or have any questions about this project then please post the on the [official Defold forum](https://forum.defold.com).
 
 # Contribute
-We happily accept pull requests for bugfixes or improvements or if you have added support for more ad networks.
+We happily accept pull requests for bugfixes and improvements or if you have added support for more ad networks.
 
 # Limitations
 Since this library leverages the `webview` component in Defold it means that the library only can support ad networks with HTML5 or mobile web support. No native SDKs can at the time of writing be used in Defold.
