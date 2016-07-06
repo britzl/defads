@@ -53,3 +53,6 @@ We happily accept pull requests for bugfixes or improvements or if you have adde
 
 # Limitations
 The current webview implementation in Defold is full screen only. This means that it is not possible to show  banner ads or similar on top of your game content. This is likely to change in the near future. Please keep an eye on the [release notes for upcoming releases](https://forum.defold.com/c/releasenotes) and make your voice heard on the forum if you wish to increase the priority of this work.
+
+# License
+This library is released under the same [Terms and Conditions as the Defold editor and service itself](http://www.defold.com/about-terms/).
