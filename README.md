@@ -42,7 +42,7 @@ The Appnext game object supports Appnext Interstitial and Video ads. You show in
 	msg.post("url_to_addnext_go"), "show_interstitial", { android_id = "your-android-id", ios_id = "your-ios-id" })
 	msg.post("url_to_addnext_go"), "show_video", { android_id = "your-android-id", ios_id = "your-ios-id" })
 
-Where android_id and ios_id corresponds to the placement id for the apps created in the Appnext self-service portal.
+Where `android_id` and `ios_id` corresponds to the placement id for the apps created in the Appnext self-service portal.
 
 ## Callbacks
 When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
