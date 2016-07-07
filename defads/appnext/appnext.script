@@ -14,14 +14,14 @@ function on_message(self, message_id, message, sender)
 		assert(message.ios_id, "You must provide an iOS placement id as 'ios_id'")
 		self.ad = adview.create()
 		if not self.ad then
-			msg.post(sender, "error")
+			msg.post(sender, adview.MSG_AD_ERROR)
 			return
 		end
 
 		local html = appnext.interstitial(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html, function(result)
 			if result.status == adview.RESULT_ERROR then
-				msg.post(sender, "error")
+				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.status == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
@@ -31,14 +31,14 @@ function on_message(self, message_id, message, sender)
 		assert(message.ios_id, "You must provide an iOS placement id as 'ios_id'")
 		self.ad = adview.create()
 		if not self.ad then
-			msg.post(sender, "error")
+			msg.post(sender, adview.MSG_AD_ERROR)
 			return
 		end
 
 		local html = appnext.video(self.ad.id, message.android_id, message.ios_id)
 		self.ad.show(html, function(result)
 			if result.status == adview.RESULT_ERROR then
-				msg.post(sender, "error")
+				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.status == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			end

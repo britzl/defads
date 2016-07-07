@@ -14,7 +14,7 @@ function on_message(self, message_id, message, sender)
 	
 		self.ad = adview.create()
 		if not self.ad then
-			msg.post(sender, "error")
+			msg.post(sender, adview.MSG_AD_ERROR)
 			return
 		end
 			
