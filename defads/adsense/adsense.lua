@@ -74,7 +74,7 @@ local FIXED_SYNC_HTML = [[
 
 local util = require "defads.shared.util"
 
-
+-- https://support.google.com/adsense/answer/1706015
 local M = {}
 
 function M.responsive(webview_id, ad_client, ad_slot)
@@ -82,7 +82,7 @@ function M.responsive(webview_id, ad_client, ad_slot)
 		__AD_CLIENT__ = ad_client,
 		__AD_SLOT__ = ad_slot,
 		__CLOSEBUTTON__ = util.closebutton(webview_id),
-	}	
+	}
 	return util.inject(RESPONSIVE_HTML, args)
 end
 
