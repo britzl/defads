@@ -18,10 +18,12 @@ M.MSG_AD_ERROR = "ad_error"
 --- Create an adview instance
 -- @return instance
 function M.create()
-	local ok, id = pcall(webview.create, function(self, webview_id, request_id, type, data)
-		if type == webview.CALLBACK_RESULT_URL_OK then
+	local instance = {}
+
+	local ok, id = pcall(webview.create, function(self, webview_id, request_id, result, data)
+		if result == webview.CALLBACK_RESULT_URL_OK then
 			webview.set_visible(webview_id, 1)
-		elseif type == webview.CALLBACK_RESULT_URL_ERROR then
+		elseif result == webview.CALLBACK_RESULT_URL_ERROR then
 			instance.destroy(M.RESULT_ERROR, "webview.CALLBACK_RESULT_URL_ERROR")
 		end
 	end)
@@ -29,7 +31,6 @@ function M.create()
 		return
 	end
 
-	local instance = {}
 	instance.id = id
 
 	local function iac_listener(self, payload, t)
