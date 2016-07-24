@@ -33,7 +33,7 @@ function M.create()
 
 	instance.id = id
 
-	local function iac_listener(self, payload, t)
+	local function iac_listener(self, payload, type)
 		local webview_id = string.match(payload.url, "/webview/(.*)/close")
 		if webview_id and tostring(webview_id) == tostring(instance.id) then
 			instance.destroy(M.RESULT_CLOSED, "Ok")
