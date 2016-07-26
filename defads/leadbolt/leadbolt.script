@@ -5,7 +5,7 @@ function init(self)
 end
 
 function final(self)
-	self.ad.destroy()
+	if self.ad then self.ad.destroy() end
 end
 
 function on_message(self, message_id, message, sender)
@@ -19,11 +19,14 @@ function on_message(self, message_id, message, sender)
 
 		local html = leadbolt.html(self.ad.id, message.section_id)
 		self.ad.show(html, function(result)
-			if result.status == adview.RESULT_ERROR then
+			if result.result == adview.RESULT_ERROR then
 				msg.post(sender, adview.MSG_AD_ERROR)
-			elseif result.status == adview.RESULT_CLOSED then
+			elseif result.result == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
 		end)
+	elseif message_id == hash("iac") then
+		assert(message.payload, "You must provide an IAC payload")
+		self.ad.iac(message.payload)
 	end
 end

@@ -23,7 +23,7 @@ end
 
 
 function M.iac_url(webview_id)
-	return M.iac_base_url() .. "://webview/" .. webview_id .. "/close"
+	return M.iac_base_url() .. "://adview/" .. webview_id .. "/close"
 end
 
 function M.closebutton(webview_id)

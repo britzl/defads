@@ -9,7 +9,7 @@ This project is a [Defold](https://www.defold.com) library project that can be u
 The project leverages the `webview` component released with [Defold 1.2.84](https://forum.defold.com/t/defold-1-2-84-has-been-released/2272). This means that you must run at least Defold 1.2.84 to show ads using the library project.
 
 # Installation
-Installing and using this project in your game is a four step process.
+Installing and using this project in your game involves the following steps:
 
 ## Step 1 - Create ad network accounts
 Sign up to one or more of the supported ad networks. Depending on the chosen ad network you might also need to create one or more ads, campaigns, placements or similar. Follow the instructions on the respective ad networks dashboard or self service portal.
@@ -26,6 +26,19 @@ Each of the supported ad networks has a corresponding game object file in in the
 
 ## Step 4 - Show ads
 You show an ad by posting a message to the added game object. The message and message data is specific to each ad network and the details of how to use each ad network is described below.
+
+## Step 5 - Set up and forward IAC invocations
+Some ads will generate a close button that can be used to close the ad and return to the game. The button will generate an IAC callback (Inter-App Communication) which is a Defold mechanism to allow apps to exchange data (or in this case the ad and the running app). If you are not already using the IAC module in Defold you first need to set up a listener to receive IAC invocations:
+
+	iac.set_listener(function(self, payload, type)
+		-- handle iac callbacks here
+	end)
+
+Once you have IAC setup you need to forward any IAC callbacks to ads that you are showing:
+
+	iac.set_listener(function(self, payload, type)
+		msg.post("url_to_ad_go", "iac", { payload = payload }) -- do this for every ad you are showing
+	end)
 
 # Usage
 Once you have gone through and setup the steps described in the installation section above your app is ready to display ads. Follow the instructions below to show ads from the different ad networks:
