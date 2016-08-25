@@ -1,24 +1,42 @@
 local adview = require "defads.shared.adview"
 local facebook = require "defads.facebook.facebook"
+local http_server = require "defads.shared.server.http_server"
+
+local PORT = 10125
 
 function init(self)
+	self.server = http_server.create(PORT)
+	self.server.router.get("facebook.html", function()
+		return http_server.html(self.facebook_html, 200)
+	end)
+	self.server.router.unhandled(function()
+		return http_server.html("NOT FOUND", 404)
+	end)
+	self.server.start()
 end
 
 function final(self)
+	self.server.stop()
 	if self.ad then self.ad.destroy() end
+end
+
+function update(self, dt)
+	self.server.update()
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("show") then
+		assert(message.app_id, "You must provide an app_id")
 		assert(message.placement_id, "You must provide a placement_id")
 		self.ad = adview.create()
 		if not self.ad then
 			msg.post(sender, adview.MSG_AD_ERROR)
 			return
 		end
-
-		local html = facebook.html(self.ad.id, message.placement_id)
-		self.ad.show(html, function(result)
+		
+		self.facebook_html = facebook.html(self.ad.id, message.app_id, message.placement_id)
+		
+		self.ad.show_url("http://localhost:" .. tostring(PORT) .. "/facebook.html", function(result)
 			if result.result == adview.RESULT_ERROR then
 				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.result == adview.RESULT_CLOSED then

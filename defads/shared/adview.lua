@@ -42,6 +42,12 @@ function M.create()
 		--print(html)
 		webview.open_raw(instance.id, html, { hidden = true })
 	end
+	
+	function instance.show_url(url, callback)
+		assert(url, "You must provide a URL to show")
+		instance.callback = callback
+		webview.open(instance.id, url, { hidden = true })
+	end
 
 	--- Call this function when the application has received an IAC callback. If the IAC
 	-- callback originated from this adview instance (typically a close button) the
