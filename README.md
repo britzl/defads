@@ -67,14 +67,14 @@ You show an Adcash ad by posting the following message:
 
 Where `zone_id` corresponds to the zone id as shown in the zones section of the Adcash console.
 
-# Unspported ad networks
+## Callbacks
+When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
+
+# Unsupported ad networks
 Below follows some notes on ad networks that were tested but failed to function properly.
 
 ## Facebook Audience Network
 It does not seem to be possible to load [Facebook Audience Network](https://developers.facebook.com/docs/audience-network) ads from file:// (the Facebook script complains about an empty 'origin' when the ad is loading). If the ad is hosted from a webpage I get "Audience Network error (1001) No fill. We are not able to serve ads to this person. Please refer to https://developers.facebook.com/docs/audience-network/faq#a12." Even though my user is Admin for the project in question and signed in from Chrome I get the same response. On iOS nothing is shown in the log. It could be that this would work for other users but that has not been tested.
-
-## Callbacks
-When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
 
 # Support
 If you come across a bug or have any questions about this project then please post the on the [official Defold forum](https://forum.defold.com).
