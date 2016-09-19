@@ -7,7 +7,7 @@ local HTML = [[
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	</head>
 	<body style="width: 100%; height: auto; margin: 0px; padding 0px; background: black;">
-		<script type="text/javascript" src="http://ad.leadbolt.net/show_app_ad.js?section_id=__SECTION_ID__"></script>
+		<script type="text/javascript" src="https://ad.leadbolt.net/show_app_ad.js?section_id=__SECTION_ID__"></script>
 		__CLOSEBUTTON__
 	</body>
 </html>
