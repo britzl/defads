@@ -13,6 +13,7 @@ local M = {}
 M.RESULT_CLOSED = "RESULT_CLOSED"
 --- Result code to pass back to the adview callback when there was a problem showing the adview content
 M.RESULT_ERROR = "RESULT_ERROR"
+M.RESULT_READY = "RESULT_READY"
 
 M.MSG_AD_CLOSED = "ad_closed"
 M.MSG_AD_ERROR = "ad_error"
@@ -48,6 +49,11 @@ function M.create()
 		instance.callback = callback
 		webview.open(instance.id, url, { hidden = true })
 	end
+	
+	function instance.eval(code)
+		assert(code, "You must provide code")
+		webview.eval(instance.id, code)
+	end
 
 	--- Call this function when the application has received an IAC callback. If the IAC
 	-- callback originated from this adview instance (typically a close button) the
@@ -64,6 +70,7 @@ function M.create()
 	local ok, id = pcall(webview.create, function(self, webview_id, request_id, result, data)
 		if result == webview.CALLBACK_RESULT_URL_OK then
 			webview.set_visible(webview_id, 1)
+			if instance.callback then instance.callback({ result = M.RESULT_READY }) end
 		elseif result == webview.CALLBACK_RESULT_URL_ERROR then
 			instance.destroy(M.RESULT_ERROR, "webview.CALLBACK_RESULT_URL_ERROR")
 		end
