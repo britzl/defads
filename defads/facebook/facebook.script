@@ -1,0 +1,32 @@
+local adview = require "defads.shared.adview"
+
+function init(self)
+end
+
+function final(self)
+	if self.ad then self.ad.destroy() end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show") then
+		assert(message.url, "You must provide a url")
+	
+		self.ad = adview.create()
+		if not self.ad then
+			msg.post(sender, adview.MSG_AD_ERROR)
+			return
+		end
+
+		self.ad.show_url(message.url, function(result)
+			if result.result == adview.RESULT_ERROR then
+				msg.post(sender, adview.MSG_AD_ERROR)
+			elseif result.result == adview.RESULT_CLOSED then
+				msg.post(sender, adview.MSG_AD_CLOSED)
+			end
+			
+		end)
+	elseif message_id == hash("iac") then
+		assert(message.payload, "You must provide an IAC payload")
+		self.ad.iac(message.payload)
+	end
+end

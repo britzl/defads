@@ -4,6 +4,8 @@ This project is a [Defold](https://www.defold.com) library project that can be u
 * [Appnext](https://www.appnext.com)
 * [Adcash](https://www.adcash.com)
 
+The following ad networks have been tested but not successfully integrated (more details below):
+* [Facebook Audience Network](https://developers.facebook.com/docs/audience-network)
 
 # Requirements
 The project leverages the `webview` component released with [Defold 1.2.84](https://forum.defold.com/t/defold-1-2-84-has-been-released/2272). This means that you must run at least Defold 1.2.84 to show ads using the library project.
@@ -64,6 +66,12 @@ You show an Adcash ad by posting the following message:
 	msg.post("url_to_adcash_go", "show", { zone_id = 1234 })
 
 Where `zone_id` corresponds to the zone id as shown in the zones section of the Adcash console.
+
+# Unspported ad networks
+Below follows some notes on ad networks that were tested but failed to function properly.
+
+## Facebook Audience Network
+It does not seem to be possible to load [Facebook Audience Network](https://developers.facebook.com/docs/audience-network) ads from file:// (the Facebook script complains about an empty 'origin' when the ad is loading). If the ad is hosted from a webpage I get "Audience Network error (1001) No fill. We are not able to serve ads to this person. Please refer to https://developers.facebook.com/docs/audience-network/faq#a12." Even though my user is Admin for the project in question and signed in from Chrome I get the same response. On iOS nothing is shown in the log. It could be that this would work for other users but that has not been tested.
 
 ## Callbacks
 When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
