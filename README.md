@@ -71,7 +71,7 @@ Where `zone_id` corresponds to the zone id as shown in the zones section of the 
 ## Showing Giftgaming ads
 You show a Giftgaming ad by posting the following message:
 
-msg.post("url_to_giftgaming_go", "show", { apikey = "12345abcde", test = false })
+	msg.post("url_to_giftgaming_go", "show", { apikey = "12345abcde", test = false })
 
 Where `apikey` corresponds to the Giftgaming API key as shown in the Giftgaming dashboard.
 
