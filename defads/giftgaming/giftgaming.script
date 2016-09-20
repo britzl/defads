@@ -6,13 +6,6 @@ function final(self)
 	if self.ad then self.ad.destroy() end
 end
 
-local function closebutton(webview_id)
-	return [[
-	document.body.innerHTML += \"<div id='closebutton' onclick='javascript: document.location = \\\"]]
-	 .. util.iac_url(webview_id) .. [[\\\"' style='background: #000000; font:bold 24px arial; padding: 2% 2%; color:white; text-decoration: none; position:fixed; z-index:1000; top:0px; right:0px; text-transform:uppercase; border:6px solid white; cursor:pointer;'> X </div>\"
-	]]
-end
-
 function on_message(self, message_id, message, sender)
 	if message_id == hash("show") then
 		assert(message.apikey, "You must provide a apikey")
@@ -30,19 +23,10 @@ function on_message(self, message_id, message, sender)
 				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.result == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
-			elseif result.result == adview.RESULT_READY then
-				msg.post(".", "foo")
-				--self.ad.eval(util.inject_closebutton(self.ad.id))
-			elseif result.result == adview.RESULT_EVAL_OK or result.result == adview.RESULT_EVAL_ERROR then
-				--msg.post(".", "hide")
 			end
 		end)
 	elseif message_id == hash("iac") then
 		assert(message.payload, "You must provide an IAC payload")
 		self.ad.iac(message.payload)
-	elseif message_id == hash("foo") then
-		self.ad.eval(util.inject_closebutton(self.ad.id))
-	elseif message_id == hash("hide") then
-		self.ad.hide()
 	end
 end
