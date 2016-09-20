@@ -3,6 +3,7 @@ This project is a [Defold](https://www.defold.com) library project that can be u
 * [Leadbolt](https://www.leadbolt.com)
 * [Appnext](https://www.appnext.com)
 * [Adcash](https://www.adcash.com)
+* [Giftgaming](https://www.giftgaming.com)
 
 The following ad networks have been tested but not successfully integrated (more details below):
 * [Facebook Audience Network](https://developers.facebook.com/docs/audience-network)
@@ -66,6 +67,13 @@ You show an Adcash ad by posting the following message:
 	msg.post("url_to_adcash_go", "show", { zone_id = 1234 })
 
 Where `zone_id` corresponds to the zone id as shown in the zones section of the Adcash console.
+
+## Showing Giftgaming ads
+You show a Giftgaming ad by posting the following message:
+
+msg.post("url_to_giftgaming_go", "show", { apikey = "12345abcde", test = false })
+
+Where `apikey` corresponds to the Giftgaming API key as shown in the Giftgaming dashboard.
 
 ## Callbacks
 When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
