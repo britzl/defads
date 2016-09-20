@@ -37,5 +37,14 @@ function M.closebutton(webview_id)
 	]]
 end
 
+function M.inject_closebutton(webview_id)
+	return [[
+	document.body.innerHTML += \"<div id='closebutton' onclick='javascript: document.location = \\\"]]
+	 .. M.iac_url(webview_id) .. [[\\\"' style='background: #000000; font:bold 24px arial; padding: 2% 2%; color:white; text-decoration: none; position:fixed; top:0px; right:0px; text-transform:uppercase; border:6px solid white; cursor:pointer;'> X </div>\";
+	document.body.innerHTML
+	 
+	]]
+end
+
 
 return M

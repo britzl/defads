@@ -2,19 +2,14 @@ local adview = require "defads.shared.adview"
 local giftgaming = require "defads.giftgaming.giftgaming"
 local util = require "defads.shared.util"
 
-function init(self)
-end
-
 function final(self)
 	if self.ad then self.ad.destroy() end
 end
 
 local function closebutton(webview_id)
 	return [[
-		document.body.innerHTML += "<div id='closebutton' onclick='closeAd()' style='background: #000000; font:bold 24px arial; padding: 2% 4% 2% 4%; color:white; text-decoration: none; position:fixed; z-index:1000; top:0px; right:0px; text-transform:uppercase; border:6px solid white; cursor:pointer;'> X </div>";
-		function closeAd(){
-			document.location = "]] .. util.iac_url(webview_id) .. [[";
-		}
+	document.body.innerHTML += \"<div id='closebutton' onclick='javascript: document.location = \\\"]]
+	 .. util.iac_url(webview_id) .. [[\\\"' style='background: #000000; font:bold 24px arial; padding: 2% 2%; color:white; text-decoration: none; position:fixed; z-index:1000; top:0px; right:0px; text-transform:uppercase; border:6px solid white; cursor:pointer;'> X </div>\"
 	]]
 end
 
@@ -28,29 +23,26 @@ function on_message(self, message_id, message, sender)
 			return
 		end
 
-		self.ad.show_url("https://api.giftgaming.com/gift?apikey=X2TYVGKD1MJ5N0TMJXDN3Y1W22ZAFCOC&width=640&height=1010&test=true", function(result)
-		--self.ad.show_url("https://api.giftgaming.com/gift?apikey=test&width=640&height=1010&test=true", function(result)
+		local html = giftgaming.html(self.ad.id, message.apikey, message.test)
+		self.ad.show(html, function(result)
+		--self.ad.show_url("http://api.giftgaming.com/gift?apikey=" .. message.apikey .. "&width=640&height=1010&test=" .. (message.test and "true" or "false"), function(result)
 			if result.result == adview.RESULT_ERROR then
 				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.result == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			elseif result.result == adview.RESULT_READY then
-				print("ready calling eval", closebutton(self.ad.id))
-				self.ad.eval(closebutton(self.ad.id))
+				msg.post(".", "foo")
+				--self.ad.eval(util.inject_closebutton(self.ad.id))
+			elseif result.result == adview.RESULT_EVAL_OK or result.result == adview.RESULT_EVAL_ERROR then
+				--msg.post(".", "hide")
 			end
-			
 		end)
-		
-		--[[local html = giftgaming.html(self.ad.id, message.apikey)
-		self.ad.show(html, function(result)
-			if result.result == adview.RESULT_ERROR then
-				msg.post(sender, adview.MSG_AD_ERROR)
-			elseif result.result == adview.RESULT_CLOSED then
-				msg.post(sender, adview.MSG_AD_CLOSED)
-			end
-		end)--]]
 	elseif message_id == hash("iac") then
 		assert(message.payload, "You must provide an IAC payload")
 		self.ad.iac(message.payload)
+	elseif message_id == hash("foo") then
+		self.ad.eval(util.inject_closebutton(self.ad.id))
+	elseif message_id == hash("hide") then
+		self.ad.hide()
 	end
 end

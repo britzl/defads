@@ -1,5 +1,6 @@
 local adview = require "defads.shared.adview"
 local leadbolt = require "defads.leadbolt.leadbolt"
+local util = require "defads.shared.util"
 
 function init(self)
 end
