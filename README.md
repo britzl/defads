@@ -75,6 +75,12 @@ You show a Giftgaming ad by posting the following message:
 
 Where `apikey` corresponds to the Giftgaming API key as shown in the Giftgaming dashboard.
 
+You can also prefetch a GiftGaming ad and get a callback when the ad is available:
+
+	msg.post("url_to_giftgaming_go", "prefetch", { apikey = "12345abcde", test = false })
+	
+This will post either a `prefetch_ok` or `prefetch_failed` message back to the sender. If `prefetch_ok` is received there's a 30 second window to post a `show` message as seen above to show the prefetched ad.
+
 ## Callbacks
 When an ad is closed it will post an `ad_closed` message back to the game object which posted the show message, as described above. If something goes wrong while showing the ad an `ad_error` message will be posted instead.
 
