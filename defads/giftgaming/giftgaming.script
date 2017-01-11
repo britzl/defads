@@ -1,6 +1,5 @@
 local adview = require "defads.shared.adview"
 local giftgaming = require "defads.giftgaming.giftgaming"
-local util = require "defads.shared.util"
 
 function final(self)
 	if self.ad then self.ad.destroy() end
@@ -18,13 +17,15 @@ function on_message(self, message_id, message, sender)
 
 		local html = giftgaming.html(self.ad.id, message.apikey, message.test)
 		self.ad.show(html, function(result)
-		--self.ad.show_url("http://api.giftgaming.com/gift?apikey=" .. message.apikey .. "&width=640&height=1010&test=" .. (message.test and "true" or "false"), function(result)
 			if result.result == adview.RESULT_ERROR then
 				msg.post(sender, adview.MSG_AD_ERROR)
 			elseif result.result == adview.RESULT_CLOSED then
 				msg.post(sender, adview.MSG_AD_CLOSED)
 			end
 		end)
+	elseif message_id == hash("prefetch") then
+		assert(message.apikey, "You must provide a apikey")
+		giftgaming.prefetch(message.apikey, message.test, sender)
 	elseif message_id == hash("iac") then
 		assert(message.payload, "You must provide an IAC payload")
 		self.ad.iac(message.payload)
