@@ -3,8 +3,8 @@ This Defold project should mostly be considered as a deprecated and early attemp
 
 * [AdMob](https://github.com/defold/extension-admob)
 * [Unity Ads](https://github.com/AGulev/DefUnityAds)
+* [FGL](https://github.com/enhance-co/defold-connector)
 * Appodeal - check the Defold forum!
-* FGL - check the Defold forum!
 
 # Defold Ads library project
 This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports:
