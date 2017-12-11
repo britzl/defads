@@ -1,10 +1,5 @@
 # IMPORTANT NOTICE!
-This Defold project should mostly be considered as a deprecated and early attempt at showing ads in a Defold game. Since version 1.2.97 Defold supports native extensions. With native extensions it has become a lot easier to integrate ad SDKs from various ad providers. There are currently several community initiatives to create native extensions for some popular ad providers:
-
-* [AdMob](https://github.com/defold/extension-admob)
-* [Unity Ads](https://github.com/AGulev/DefUnityAds)
-* [FGL](https://github.com/enhance-co/defold-connector)
-* Appodeal - check the Defold forum!
+This Defold project should mostly be considered as a deprecated and early attempt at showing ads in a Defold game. Since version 1.2.97 Defold supports native extensions. With native extensions it has become a lot easier to integrate ad SDKs from various ad providers. There are currently several community initiatives to create native extensions for some popular ad providers. Please refer to the [Defold Asset Portal](https://www.defold.com/community/assets/) for more information.
 
 # Defold Ads library project
 This project is a [Defold](https://www.defold.com) library project that can be used in Defold games and applications targeting mobile devices to show ads provided by several different ad networks. The library currently supports:
